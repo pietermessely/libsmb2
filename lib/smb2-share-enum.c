@@ -75,8 +75,8 @@ nse_free(struct smb2nse *nse)
 }
 
 static void
-share_enum_ioctl_cb(struct dcerpc_context *dce, int status,
-                    void *command_data, void *cb_data)
+share_enum_cb(struct dcerpc_context *dce, int status,
+              void *command_data, void *cb_data)
 {
         struct smb2nse *nse = cb_data;
         struct srvsvc_netshareenumall_rep *rep = command_data;
@@ -113,7 +113,7 @@ share_enum_bind_cb(struct dcerpc_context *dce, int status,
                                    srvsvc_netshareenumall_encoder, &nse->ea_req,
                                    srvsvc_netshareenumall_decoder,
                                    sizeof(struct srvsvc_netshareenumall_rep),
-                                   share_enum_ioctl_cb, nse);
+                                   share_enum_cb, nse);
         if (status) {
                 nse->cb(smb2, status, NULL, nse->cb_data);
                 nse_free(nse);
