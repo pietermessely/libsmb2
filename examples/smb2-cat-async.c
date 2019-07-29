@@ -71,7 +71,7 @@ void pr_cb(struct smb2_context *smb2, int status,
                 return;
         }
 
-        write(0, buf, status);
+        int ignore = write(0, buf, status);
 
         pos += status;
         if (smb2_pread_async(smb2, fh, buf, 102400, pos, pr_cb, fh) < 0) {

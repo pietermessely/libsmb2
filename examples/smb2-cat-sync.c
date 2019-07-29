@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
         }
 
         while ((count = smb2_pread(smb2, fh, buf, 1024, pos)) > 0) {
-                write(0, buf, count);
+                int ignore = write(0, buf, count);
                 pos += count;
         };
                 

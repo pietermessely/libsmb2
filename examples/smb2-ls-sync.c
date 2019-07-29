@@ -96,9 +96,9 @@ int main(int argc, char *argv[])
                         char buf[256];
 
                         if (url->path && url->path[0]) {
-                                asprintf(&link, "%s/%s", url->path, ent->name);
+                                int ignore = asprintf(&link, "%s/%s", url->path, ent->name);
                         } else {
-                                asprintf(&link, "%s", ent->name);
+                                int ignore = asprintf(&link, "%s", ent->name);
                         }
                         smb2_readlink(smb2, link, buf, 256);
                         printf("    -> [%s]\n", buf);
