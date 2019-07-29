@@ -18,7 +18,8 @@ set(SOURCES smb2-cat-async
 
 foreach(TARGET ${SOURCES})
   add_executable(${TARGET} ${TARGET}.c)
-  target_link_libraries(${TARGET} ${CORE_LIBRARIES} smb2)
+  target_link_libraries(${TARGET} ${CORE_LIBRARIES})
+  add_dependencies(${TARGET} smb2)
 endforeach()
 
 add_definitions(-Werror "-D_U_=__attribute__((unused))")
