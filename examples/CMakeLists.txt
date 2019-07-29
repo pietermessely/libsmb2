@@ -22,4 +22,4 @@ foreach(TARGET ${SOURCES})
   add_dependencies(${TARGET} smb2)
 endforeach()
 
-add_definitions(-Werror "-D_U_=__attribute__((unused))")
+add_definitions(-Werror -Wno-unused-variable "-D_U_=__attribute__((unused))")
