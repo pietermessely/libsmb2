@@ -849,6 +849,23 @@ int smb2_echo_async(struct smb2_context *smb2,
  */
 int smb2_echo(struct smb2_context *smb2);
 
+/*
+ * Async share_enum()
+ * This function only works when connected to the IPC$ share.
+ *
+ * Returns
+ *  0     : The operation was initiated. Result of the operation will be
+ *          reported through the callback function.
+ * -errno : There was an error. The callback function will not be invoked.
+ *
+ * When the callback is invoked, status indicates the result:
+ *      0 : Success. Command_data is struct srvsvc_netshareenumall_rep *
+ *          This pointer must be freed using smb2_free_data().
+ * -errno : An error occured.
+ */
+int smb2_share_enum_async(struct smb2_context *smb2,
+                          smb2_command_cb cb, void *cb_data);
+
 #ifdef __cplusplus
 }
 #endif
@@ -896,22 +913,5 @@ struct srvsvc_netshareenumall_rep {
 
         uint32_t status;
 };
-
-/*
- * Async share_enum()
- * This function only works when connected to the IPC$ share.
- *
- * Returns
- *  0     : The operation was initiated. Result of the operation will be
- *          reported through the callback function.
- * -errno : There was an error. The callback function will not be invoked.
- *
- * When the callback is invoked, status indicates the result:
- *      0 : Success. Command_data is struct srvsvc_netshareenumall_rep *
- *          This pointer must be freed using smb2_free_data().
- * -errno : An error occured.
- */
-int smb2_share_enum_async(struct smb2_context *smb2,
-                          smb2_command_cb cb, void *cb_data);
 
 #endif /* !_LIBSMB2_H_ */
